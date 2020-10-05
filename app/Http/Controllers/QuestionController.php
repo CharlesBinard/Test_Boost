@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -38,12 +39,14 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $valited = $request->validate([
             'title' => 'required',
             'description' => 'required',
         ]);
 
-        Question::create($request->all());
+        $valited['owner_id'] = Auth::id();
+
+        Question::create($valited);
 
         return redirect()->route('questions.index')
                          ->with('success', 'Question created successfully.');

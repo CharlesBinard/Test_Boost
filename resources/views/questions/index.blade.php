@@ -17,15 +17,15 @@
 
     <table class="table table-bordered">
         <tr>
-            <th>No</th>
+            <th>Owner</th>
             <th>Title</th>
             <th>Description</th>
             <th width="280px">Action</th>
         </tr>
         @foreach ($questions as $question)
         <tr>
-            <td>{{ ++$i }}</td>
-            <td>{{ $question->name }}</td>
+            <td>{{ $question->owner->name }}</td>
+            <td>{{ $question->title }}</td>
             <td>{{ $question->description }}</td>
             <td>
                 <form action="{{ route('questions.destroy',$question->id) }}" method="POST">
