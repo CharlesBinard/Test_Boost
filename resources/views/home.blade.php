@@ -5,7 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">
+                    {{ __('Dashboard') }} |    {{ __('You are logged in!') }} |
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+                        Logout
+                    </a>
+                    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,7 +22,11 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <a class="btn btn-link" href="questions">
+                        Show all questions !
+                    </a>
+
+
                 </div>
             </div>
         </div>

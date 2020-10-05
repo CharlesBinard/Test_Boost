@@ -15,4 +15,8 @@ class Question extends Model
     public function owner(){
         return $this->belongsTo(User::class);
     }
+
+    public function answers(){
+        return $this->hasMany(Answer::class);
+    }
 }
