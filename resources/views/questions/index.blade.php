@@ -4,6 +4,9 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-right">
+                <a class="btn btn-info" href="/"> Home</a>
+            </div>
+            <div class="pull-left">
                 <a class="btn btn-success" href="{{ route('questions.create') }}"> Create New Question</a>
             </div>
         </div>
@@ -15,31 +18,23 @@
         </div>
     @endif
 
+    @if ($message = Session::get('error'))
+    <div class="alert alert-error">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
     <table class="table table-bordered">
         <tr>
             <th>Owner</th>
             <th>Title</th>
             <th>Description</th>
-            <th width="280px">Action</th>
         </tr>
         @foreach ($questions as $question)
         <tr>
             <td>{{ $question->owner->name }}</td>
-            <td>{{ $question->title }}</td>
-            <td>{{ $question->description }}</td>
-            <td>
-                <form action="{{ route('questions.destroy',$question->id) }}" method="POST">
-
-                    <a class="btn btn-info" href="{{ route('questions.show',$question->id) }}">Show</a>
-
-                    <a class="btn btn-primary" href="{{ route('questions.edit',$question->id) }}">Edit</a>
-
-                    @csrf
-                    @method('DELETE')
-
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </td>
+            <td> <a href="{{ route('questions.show',$question->id) }}"> {{$question->title}}</a> </td>
+            <td>{{ substr($question->description, 0 ,40) }}</td>
         </tr>
         @endforeach
     </table>
